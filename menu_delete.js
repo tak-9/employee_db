@@ -45,7 +45,6 @@ async function removeEmployee(connection) {
         })
         .catch((err)=>{
             console.log("Error in removeEmployee!", err);
-            connection.end();
         })
         .finally(()=>{
             connection.end();
@@ -92,7 +91,6 @@ async function removeRole(connection) {
         })
         .catch((err)=>{
             console.log("Error in removeRole!", err);
-            connection.end();
         })
         .finally(()=>{
             connection.end();
