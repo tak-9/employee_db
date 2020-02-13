@@ -1,6 +1,6 @@
 const Operations = require("./Operations");
 const util = require("../util.js");
-const dbDelete = require("../db_delete");
+const dbDelete = require("../db/db_delete");
 
 class DepartmentOperations extends Operations {
 

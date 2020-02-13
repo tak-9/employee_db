@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const util = require("./util.js");
-const dbInsert = require("./db_insert.js");
+const dbInsert = require("./db/db_insert.js");
 
 
 function insertMenu(connection) { 

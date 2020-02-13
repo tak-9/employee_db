@@ -1,5 +1,4 @@
 const inquirer = require("inquirer");
-const dbDelete = require("./db_delete.js");
 const util = require("./util.js");
 const EmployeeOperations = require("./util/EmployeeOperations.js");
 const RoleOperations = require("./util/RoleOperations.js");

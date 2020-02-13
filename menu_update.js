@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const dbUpdate = require("./db_update.js");
+const dbUpdate = require("./db/db_update.js");
 const util = require("./util.js");
 
 function updateMenu(connection) { 

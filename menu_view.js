@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const dbSelect = require("./db_select.js");
+const dbSelect = require("./db/db_select.js");
 
 function viewMenu(connection) { 
     inquirer

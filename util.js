@@ -1,6 +1,5 @@
 const mysql = require("mysql");
-const dbSelect = require("./db_select.js");
-const dbUpdate = require("./db_update.js");
+const dbSelect = require("./db/db_select.js.js");
 
 function getIdFromRow(str) {
     const regEx = /^[0-9]*/;
