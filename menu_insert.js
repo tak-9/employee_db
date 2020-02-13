@@ -72,7 +72,7 @@ async function insertRoleMenu(connection) {
             //first_name, last_name, role_id, manager_id
             var deptId = util.getIdFromRow(res.department);
             var param = [res.title, res.salary, deptId]
-            console.log(param);
+            //console.log(param);
             await dbInsert.insertRole(connection, param);
             console.log("Added a new role ", res.title);
         })
@@ -113,7 +113,7 @@ async function insertEmployeeMenu(connection) {
             var roleId = util.getIdFromRow(res.role);
             var managerId = util.getIdFromRow(res.manager);
             var param = [res.first, res.last, roleId, managerId]
-            console.log(param);
+            //console.log(param);
             await dbInsert.insertEmployee(connection, param);
             console.log("Added a new employee ", res.first, res.last);
         })

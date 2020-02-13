@@ -13,9 +13,6 @@ var connection = mysql.createConnection({
     database: "emp_db"
 });
 
-// This is for debugging inquirer memor leak.
-//process.on('warning', e => console.warn(e.stack));
-
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
