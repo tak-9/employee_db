@@ -1,6 +1,9 @@
 const inquirer = require("inquirer");
 const dbDelete = require("./db_delete.js");
 const util = require("./util.js");
+const EmployeeOperations = require("./util/EmployeeOperations.js");
+const RoleOperations = require("./util/RoleOperations.js");
+const DepartmentOperations = require("./util/DepartmentOperations.js");
 
 function deleteMenu(connection) { 
     inquirer
@@ -15,11 +18,14 @@ function deleteMenu(connection) {
             }])
         .then(async function (res) {
             if (res.main === "Remove Employee") {
-                removeEmployee(connection);
+                var emp = new EmployeeOperations(); 
+                removeAnyMenu(connection, emp);
             } else if (res.main === "Remove Department") {
-                removeDepartment(connection);
+                var department = new DepartmentOperations();
+                removeAnyMenu(connection, department);
             } else if (res.main === "Remove Role") {
-                removeRole(connection);
+                var role = new RoleOperations();
+                removeAnyMenu(connection, role);
             }
         })
         .catch(function (err) { 
@@ -28,77 +34,29 @@ function deleteMenu(connection) {
         })
 }
 
-async function removeEmployee(connection) { 
-    var menuItems = await util.getAllEmployees(connection);
+async function removeAnyMenu(connection, type) {
+    var menuItems = await type.getMenuItemsForDelete(connection);
     inquirer
         .prompt([
             {
-                message: "Which employee do you want to remove?",
+                message: type.getDeleteMessage(),
                 type: 'list',
                 choices: menuItems,
                 name: 'chosen'
             }])
         .then(async(res)=>{
             var id = util.getIdFromRow(res.chosen);
-            await dbDelete.deleteEmployee(connection, [id]);
+            await type.execDelete(connection, [id]);
             console.log(res.chosen, " was deleted.");
         })
         .catch((err)=>{
-            console.log("Error in removeEmployee!", err);
+            console.log("Error in removeAny!", err);
         })
         .finally(()=>{
             connection.end();
         })
 }
-
-async function removeDepartment(connection) { 
-    var menuItems = await util.getAllDepartments(connection);
-    inquirer
-        .prompt([
-            {
-                message: "Which department do you want to remove?",
-                type: 'list',
-                choices: menuItems,
-                name: 'chosen'
-            }])
-        .then(async (res)=>{
-            var id = util.getIdFromRow(res.chosen);
-            await dbDelete.deleteDepartment(connection, [id]);
-            console.log(res.chosen, " was deleted.");
-        })
-        .catch((err)=>{
-            console.log("Error in removeDepartment!", err);
-        })
-        .finally(()=>{
-            connection.end();
-        })
-}
-
-async function removeRole(connection) { 
-    var menuItems = await util.getAllRoles(connection);
-    inquirer
-        .prompt([
-            {
-                message: "Which role do you want to remove?",
-                type: 'list',
-                choices: menuItems,
-                name: 'chosen'
-            }])
-        .then(async (res)=>{
-            var id = util.getIdFromRow(res.chosen);
-            await dbDelete.deleteRole(connection, [id]);
-            console.log(res.chosen, " was deleted.");
-        })
-        .catch((err)=>{
-            console.log("Error in removeRole!", err);
-        })
-        .finally(()=>{
-            connection.end();
-        })
-}
-
 
 module.exports = {
     deleteMenu: deleteMenu
 };
-
