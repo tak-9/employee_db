@@ -32,7 +32,7 @@ var sqlStrs =
 
 var execSQL = function(connection, sqlStr, param){ 
     sqlStr = mysql.format(sqlStr, param);
-    console.log(sqlStr);
+    // console.log(sqlStr);
     return new Promise((resolve, reject) => {
         connection.query(sqlStr, function (err, res) {
             if (err) {
