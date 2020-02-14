@@ -16,6 +16,15 @@ var sqlStrs =
                                     "INNER JOIN role on employee.role_id = role.id) " +
                                     "INNER JOIN department on role.department_id= department.id) " +
                                     "ORDER BY department.name;",
+    selectEmployeesByManager: "select e.id as ID, e.first_name as emp_first, e.last_name as emp_last, m.first_name as mgr_first, m.last_name as mgr_last " +
+                                "from employee e " + 
+                                "inner join employee  m " + 
+                                "on e.manager_id = m.id " +
+                                "order by m.first_name",
+    selectSumSalaryOfDepartment: "SELECT d.name as dept_name, sum(r.salary) as sum_salary " + 
+                                "FROM role r " +
+                                "INNER JOIN department d ON r.department_id = d.id " + 
+                                "GROUP BY r.department_id;",                               
     selectDepartments: "SELECT * FROM department;",
     selectRoles: "SELECT * FROM role;"
 }

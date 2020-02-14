@@ -8,9 +8,11 @@ function viewMenu(connection) {
                 message: "Choose view.",
                 type: 'list',
                 choices: ["View All Employees By Department",
-                        //"View All Employees By Manager",
+                        "View All Employees By Manager",
                         "View All Departments",
-                        "View All Roles"],
+                        "View All Roles",
+                        "View the total utilized budget of a department"
+                    ],
                 name: "main"
             }])
         .then(async function (res) {
@@ -26,6 +28,9 @@ function viewMenu(connection) {
                 console.table(dbResult);
             } else if (res.main === "View All Roles"){
                 dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectRoles);
+                console.table(dbResult);
+            } else if (res.main === "View the total utilized budget of a department") {
+                dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectSumSalaryOfDepartment);
                 console.table(dbResult);
             } 
         })
