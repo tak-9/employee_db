@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
-const util = require("./util.js");
+const util = require("./util/util.js");
+const dbUtil = require("./util/db_util.js");
 const EmployeeOperations = require("./util/EmployeeOperations.js");
 const RoleOperations = require("./util/RoleOperations.js");
 const DepartmentOperations = require("./util/DepartmentOperations.js");
@@ -45,7 +46,9 @@ async function removeAnyMenu(connection, type) {
             }])
         .then(async(res)=>{
             var id = util.getIdFromRow(res.chosen);
-            await type.execDelete(connection, [id]);
+            // This gets different SQL statement depending on 'type' (Employee, Department or Role)
+            var sqlStr = type.getDeleteSqlStr();
+            await dbUtil.execSQL(connection, sqlStr, [id]);        
             console.log(res.chosen, " was deleted.");
         })
         .catch((err)=>{

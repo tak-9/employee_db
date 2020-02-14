@@ -8,7 +8,7 @@ class Operations {
 
     }
 
-    execDelete(connection, id) {
+    getDeleteSqlStr() {
         
     }
 }

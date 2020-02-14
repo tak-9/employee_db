@@ -1,5 +1,4 @@
-const mysql = require("mysql");
-const dbSelect = require("./db/db_select.js");
+const dbUtil = require("./db_util.js");
 
 function displayBanner() {
     const banner = 
@@ -33,7 +32,7 @@ function getIdFromRow(str) {
 function getAllEmployees(connection){
     return new Promise((resolve, reject) => {
         var employeesArray = [];
-        dbSelect.selectEmployees(connection)
+        dbUtil.execSQL(connection, dbUtil.sqlStrs.selectEmployees)
         .then((res)=>{
             for (var i=0; i < res.length; i++) {
                 let employeeFullName = res[i].id + " " + res[i].first_name + " " + res[i].last_name;
@@ -50,7 +49,7 @@ function getAllEmployees(connection){
 function getAllRoles(connection){
     return new Promise((resolve, reject) => {
         var rolesArray = [];
-        dbSelect.selectRoles(connection) 
+        dbUtil.execSQL(connection,dbUtil.sqlStrs.selectRoles)
         .then((res)=>{
             for (var i=0; i < res.length; i++) {
                 let role = res[i].id + " " + res[i].title;
@@ -67,7 +66,7 @@ function getAllRoles(connection){
 function getAllDepartments(connection){
     return new Promise((resolve, reject) => {
         var departmentsArray = [];
-        dbSelect.selectDepartments(connection) 
+        dbUtil.execSQL(connection, dbUtil.sqlStrs.selectDepartments)
         .then((res)=>{
             for (var i=0; i < res.length; i++) {
                 let role = res[i].id + " " + res[i].name;

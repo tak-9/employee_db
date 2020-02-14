@@ -1,6 +1,6 @@
 const Operations = require("./Operations");
-const util = require("../util.js");
-const dbDelete = require("../db/db_delete");
+const util = require("./util.js");
+const dbUtil = require("./db_util.js");
 
 class EmployeeOperatins extends Operations {
 
@@ -20,17 +20,10 @@ class EmployeeOperatins extends Operations {
         });
     }
 
-    execDelete(connection, id) {
-        return new Promise((resolve, reject) => {
-            dbDelete.deleteEmployee(connection, [id])
-            .then((res)=>{
-                resolve(res);
-            })
-            .catch((err)=>{
-                reject(err);
-            });    
-        })
+    getDeleteSqlStr() {
+        return dbUtil.sqlStrs.deleteEmployee; 
     }
+
 }
 
 module.exports = EmployeeOperatins;

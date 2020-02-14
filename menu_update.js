@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
-const dbUpdate = require("./db/db_update.js");
-const util = require("./util.js");
+const dbUtil = require("./util/db_util.js");
+const util = require("./util/util.js");
 
 function updateMenu(connection) { 
     inquirer
@@ -47,7 +47,7 @@ async function updateEmployeeRoleMenu(connection) {
         var roleId = util.getIdFromRow(res.roleWithID);
         let param = [roleId, empId];
         //console.log(`empId: ${empId} roleId: ${roleId}`);
-        dbUpdate.updateEmployeeRole(connection, param);
+        dbUtil.execSQL(connection, dbUtil.sqlStrs.updateEmployeeRole, param);
     })
     .finally(() => { 
         connection.end();
@@ -81,7 +81,7 @@ async function updateEmployeeManagerMenu(connection) {
             var empId = util.getIdFromRow(res.staff);
             var newManagerId = util.getIdFromRow(res.manager);
             var param = [newManagerId, empId];
-            dbUpdate.updateEmployeeManager(connection, param);
+            dbUtil.execSQL(connection, dbUtil.sqlStrs.updateEmployeeManager, param);
             console.log(`Updated ${res.staff}'s manager.`);
         })
         .catch(function (err){

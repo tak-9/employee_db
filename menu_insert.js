@@ -1,8 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
-const util = require("./util.js");
-const dbInsert = require("./db/db_insert.js");
-
+const util = require("./util/util.js");
+const dbUtil = require("./util/db_util.js");
 
 function insertMenu(connection) { 
     inquirer
@@ -38,7 +37,7 @@ function insertDepartmentMenu(connection) {
                 name: "department"
             }])
         .then(async function (res) {
-            await dbInsert.insertDepartment(connection, [res.department]);
+            await dbUtil.execSQL(connection, dbUtil.sqlStrs.insertDepartment, [res.department]);
             console.log("Added a new department ", res.department);
         })
         .catch(function (err){
@@ -70,7 +69,7 @@ async function insertRoleMenu(connection) {
         .then(async function (res) {
             var deptId = util.getIdFromRow(res.department);
             var param = [res.title, res.salary, deptId];
-            await dbInsert.insertRole(connection, param);
+            await dbUtil.execSQL(connection, dbUtil.sqlStrs.insertRole, param)
             console.log("Added a new role ", res.title);
         })
         .catch(function (err){
@@ -110,7 +109,7 @@ async function insertEmployeeMenu(connection) {
             var roleId = util.getIdFromRow(res.role);
             var managerId = util.getIdFromRow(res.manager);
             var param = [res.first, res.last, roleId, managerId];
-            await dbInsert.insertEmployee(connection, param);
+            await dbUtil.execSQL(connection, dbUtil.sqlStrs.insertEmployee, param)
             console.log("Added a new employee ", res.first, res.last);
         })
         .catch(function (err){
