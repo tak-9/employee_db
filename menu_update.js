@@ -8,13 +8,15 @@ function updateMenu(connection) {
             {
                 message: "Choose an operation.",
                 type: 'list',
-                choices: ["Update Employee Role"],
+                choices: ["Update Employee Role", "Update Employee Manager"],
                 name: "main"
             }])
         .then(function (res) {
             if (res.main === "Update Employee Role") {
                 updateEmployeeRoleMenu(connection); 
-            } 
+            } else if (res.main === "Update Employee Manager"){
+                updateEmployeeManagerMenu(connection);
+            }
         })
         .catch(function (err) { 
             console.log("Error in update menu!", err);
@@ -57,10 +59,9 @@ module.exports = {
 };
 
 
-/*
-function UpdateEmployeeManager() { 
+async function updateEmployeeManagerMenu(connection) { 
     // TODO: Add SQL. Get all employees. 
-    var allEmployees = [];
+    var allEmployees = await util.getAllEmployees(connection);
 
     inquirer
         .prompt([
@@ -77,15 +78,21 @@ function UpdateEmployeeManager() {
             }])
         .then(function (res) {
             console.log(res.staff, res.manager);
-            // TODO: Add SQL. Update employee's manager.
-            console.log("Updated employee's manager.");
-            mainMenu();
+            var empId = util.getIdFromRow(res.staff);
+            var newManagerId = util.getIdFromRow(res.manager);
+            var param = [newManagerId, empId];
+            dbUpdate.updateEmployeeManager(connection, param);
+            console.log(`Updated ${res.staff}'s manager.`);
         })
         .catch(function (err){
             console.log("Error in UpdateEmployeeManager!", err);
         })
+        .finally(function (err){
+            connection.end();
+        })
 };
 
+/*
 function updateEmployeeRole() {
     console.log("Update Employee Role");
     // TODO: Add SQL. Get all employees. 
