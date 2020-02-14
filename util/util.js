@@ -82,8 +82,17 @@ function getAllDepartments(connection){
 
 
 function checkNumber(str){
-    if (str.match("[0-9]+") === null) {
+    if (str.match("^[0-9]+\.?[0-9]?[0-9]?$") === null) {
         console.log("\nPlease enter a valid number!");
+        return false;
+    } else { 
+        return true;
+    }
+}
+
+function checkMandatory(str) { 
+    if (str.trim() === "") {
+        console.log("\nPThis is a mandatory field.");
         return false;
     } else { 
         return true;
@@ -96,5 +105,6 @@ module.exports = {
     getAllRoles: getAllRoles,
     getIdFromRow: getIdFromRow,
     getAllDepartments: getAllDepartments, 
-    checkNumber: checkNumber
+    checkNumber: checkNumber,
+    checkMandatory: checkMandatory
 };

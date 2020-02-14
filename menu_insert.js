@@ -33,7 +33,8 @@ function insertDepartmentMenu(connection) {
             {
                 message: "What is the name of department?",
                 type: 'input',
-                name: "department"
+                name: "department",
+                validate: util.checkMandatory
             }])
         .then(async function (res) {
             await dbUtil.execSQL(connection, dbUtil.sqlStrs.insertDepartment, [res.department]);
@@ -54,7 +55,8 @@ async function insertRoleMenu(connection) {
             {
                 message: "What is the title of role?",
                 type: 'input',
-                name: "title"
+                name: "title",
+                validate: util.checkMandatory
             }, { 
                 message: "What is the salary?",
                 type: 'input',
@@ -90,11 +92,13 @@ async function insertEmployeeMenu(connection) {
             {
                 message: "What is the employee's first name?",
                 type: 'input',
-                name: "first"
+                name: "first",
+                validate: util.checkMandatory
             }, { 
                 message: "What is the employee's last name?",
                 type: 'input',
-                name: "last"
+                name: "last",
+                validate: util.checkMandatory
             }, {
                 message: "What is the employee's role?",
                 type: 'list',
