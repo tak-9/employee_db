@@ -80,10 +80,11 @@ async function insertRoleMenu(connection) {
     }
 
 async function insertEmployeeMenu(connection) { 
-    var roles = await util.getAllRoles(connection);
-    var employees = await util.getAllEmployees(connection);
-    // TODO: Consider using promise.all
-    inquirer
+    Promise.all([util.getAllRoles(connection), util.getAllEmployees(connection)])
+    .then((results) => {
+        var roles = results[0];
+        var employees = results[1];
+        inquirer
         .prompt([
             {
                 message: "What is the employee's first name?",
@@ -117,6 +118,7 @@ async function insertEmployeeMenu(connection) {
         .finally(function() { 
             connection.end();
         })
+    })
 };
 
 module.exports = {

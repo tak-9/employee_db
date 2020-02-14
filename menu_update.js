@@ -26,32 +26,35 @@ function updateMenu(connection) {
 
 
 async function updateEmployeeRoleMenu(connection) {
-    var rolesArray = await util.getAllRoles(connection);
-    var employeesArray = await util.getAllEmployees(connection);
-    // TODO: Consider using Promise.all instead.
-    inquirer
-    .prompt([
-        {
-            message: "Which employee do you want to update?",
-            type: 'list',
-            choices: employeesArray,
-            name: "employeeNameWithID"
-        },{
-            message: "What is the new role?",
-            type: 'list',
-            choices: rolesArray,
-            name: "roleWithID"
-        }])
-    .then((res) => {
-        var empId = util.getIdFromRow(res.employeeNameWithID);
-        var roleId = util.getIdFromRow(res.roleWithID);
-        let param = [roleId, empId];
-        //console.log(`empId: ${empId} roleId: ${roleId}`);
-        dbUtil.execSQL(connection, dbUtil.sqlStrs.updateEmployeeRole, param);
+    Promise.all([util.getAllRoles(connection), util.getAllEmployees(connection)])
+    .then((results)=>{
+        var rolesArray = results[0];
+        var employeesArray = results[1];
+            inquirer
+        .prompt([
+            {
+                message: "Which employee do you want to update?",
+                type: 'list',
+                choices: employeesArray,
+                name: "employeeNameWithID"
+            },{
+                message: "What is the new role?",
+                type: 'list',
+                choices: rolesArray,
+                name: "roleWithID"
+            }])
+        .then((res) => {
+            var empId = util.getIdFromRow(res.employeeNameWithID);
+            var roleId = util.getIdFromRow(res.roleWithID);
+            let param = [roleId, empId];
+            //console.log(`empId: ${empId} roleId: ${roleId}`);
+            dbUtil.execSQL(connection, dbUtil.sqlStrs.updateEmployeeRole, param);
+            console.log(`Updated ${res.employeeNameWithID}'s role.`);
+        })
+        .finally(() => { 
+            connection.end();
+        });
     })
-    .finally(() => { 
-        connection.end();
-    });
 }
 
 module.exports = {
@@ -60,7 +63,6 @@ module.exports = {
 
 
 async function updateEmployeeManagerMenu(connection) { 
-    // TODO: Add SQL. Get all employees. 
     var allEmployees = await util.getAllEmployees(connection);
 
     inquirer
