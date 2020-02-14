@@ -91,35 +91,3 @@ async function updateEmployeeManagerMenu(connection) {
             connection.end();
         })
 };
-
-/*
-function updateEmployeeRole() {
-    console.log("Update Employee Role");
-    // TODO: Add SQL. Get all employees. 
-    var allEmployees = [];
-    // TODO: Add SQL. Get all Roles. 
-    var allRoles = [];
-
-    inquirer
-        .prompt([
-            {
-                message: "Which employee's role do you want to update?",
-                type: 'list',
-                choices: allEmployees,
-                name: "employee"
-            }, { 
-                message: "Which is the employee's new role?",
-                type: 'list', 
-                choices: allRoles,
-                name: "role"
-            }])
-        .then(function (res) {
-            console.log(res.employee, res.role);
-            // TODO: Add SQL. Update employee's manager.
-            mainMenu();
-        })
-        .catch(function (err){
-            console.log("Error in updateEmployeeRole!", err);
-        })
-}
-*/

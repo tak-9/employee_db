@@ -1,5 +1,4 @@
 const inquirer = require("inquirer");
-const mysql = require("mysql");
 const util = require("./util/util.js");
 const dbUtil = require("./util/db_util.js");
 
