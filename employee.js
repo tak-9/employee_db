@@ -1,27 +1,25 @@
 const inquirer = require("inquirer");
-const mysql = require("mysql");
 const viewMenu = require("./menu_view.js");
 const updateMenu = require("./menu_update.js");
 const deleteMenu = require("./menu_delete.js");
 const insertMenu = require("./menu_insert.js");
 const util = require("./util/util.js");
+const dbUtil = require("./util/db_util.js");
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "password",
-    database: "emp_db"
-});
+main();
 
-connection.connect(function (err) {
-    if (err) throw err;
-    console.log("connected as id " + connection.threadId);
-    util.displayBanner();
-    mainMenu();
-});
+function main(){
+    dbUtil.setupConnection()
+    .then((connection)=>{
+        util.displayBanner();
+        mainMenu(connection);
+    })
+    .catch((err)=>{
+        console.log("Database setup error!",err);
+    })
+}
 
-function mainMenu() { 
+function mainMenu(connection) { 
     inquirer
         .prompt([
             {
