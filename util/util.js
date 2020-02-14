@@ -81,10 +81,20 @@ function getAllDepartments(connection){
 }
 
 
+function checkNumber(str){
+    if (str.match("[0-9]+") === null) {
+        console.log("\nPlease enter a valid number!");
+        return false;
+    } else { 
+        return true;
+    }
+}
+
 module.exports = {
     displayBanner: displayBanner,
     getAllEmployees: getAllEmployees,
     getAllRoles: getAllRoles,
     getIdFromRow: getIdFromRow,
-    getAllDepartments: getAllDepartments   
+    getAllDepartments: getAllDepartments, 
+    checkNumber: checkNumber
 };

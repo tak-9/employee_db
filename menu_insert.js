@@ -58,7 +58,8 @@ async function insertRoleMenu(connection) {
             }, { 
                 message: "What is the salary?",
                 type: 'input',
-                name: "salary"
+                name: "salary",
+                validate: util.checkNumber
             }, {
                 message: "Which department?",
                 type: 'list',
