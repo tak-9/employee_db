@@ -12,12 +12,14 @@ $ git clone https://github.com/tak-9/employee_db.git
 
 $ npm install 
 
-4.	Run application. 
+4.  Create database and insert data to MySQL. Run data.sql and emp.sql. 
+
+5.	Run application. 
 
 $ node employee.js 
 
-5.	Select an item in the menu to perform search, add, update, delete an entry in the database. 
-6.	The application ends when the database operation is completed.  
+6.	Select an item in the menu to perform search, add, update, delete an entry in the database. 
+7.	The application ends when the database operation is completed.  
 
 Please repeat the above step if you need to perform another database query.  
 
