@@ -1,5 +1,28 @@
 const mysql = require("mysql");
-const dbSelect = require("./db/db_select.js.js");
+const dbSelect = require("./db/db_select.js");
+
+function displayBanner() {
+    const banner = 
+    "  ______                 _                        \n" +
+    " |  ____|               | |                       \n" +
+    " | |__   _ __ ___  _ __ | | ___  _   _  ___  ___  \n" +
+    " |  __| | '_ ` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\ \n" +
+    " | |____| | | | | | |_) | | (_) | |_| |  __/  __/ \n" +
+    " |______|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___| \n" +
+    "                  | |             __/ |           \n" +
+    "                  |_|            |___/            \n" +
+    "                                                  \n" +
+    "  __  __                                          \n" +
+    " |  \\/  |                                         \n" +
+    " | \\  / | __ _ _ __   __ _  __ _  ___ _ __        \n" +
+    " | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '__|       \n" +
+    " | |  | | (_| | | | | (_| | (_| |  __/ |          \n" +
+    " |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          \n" +
+    "                            __/ |                 \n" +
+    "                           |___/                  \n" +
+    "                                                  \n";
+    console.log(banner);
+}
 
 function getIdFromRow(str) {
     const regEx = /^[0-9]*/;
@@ -60,6 +83,7 @@ function getAllDepartments(connection){
 
 
 module.exports = {
+    displayBanner: displayBanner,
     getAllEmployees: getAllEmployees,
     getAllRoles: getAllRoles,
     getIdFromRow: getIdFromRow,

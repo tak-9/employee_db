@@ -4,6 +4,7 @@ const viewMenu = require("./menu_view.js");
 const updateMenu = require("./menu_update.js");
 const deleteMenu = require("./menu_delete.js");
 const insertMenu = require("./menu_insert.js");
+const util = require("./util.js");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -16,6 +17,7 @@ var connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
+    util.displayBanner();
     mainMenu();
 });
 
