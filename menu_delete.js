@@ -1,9 +1,6 @@
 const inquirer = require("inquirer");
 const util = require("./util/util.js");
 const dbUtil = require("./util/db_util.js");
-const EmployeeOperations = require("./util/EmployeeOperations.js");
-const RoleOperations = require("./util/RoleOperations.js");
-const DepartmentOperations = require("./util/DepartmentOperations.js");
 
 function deleteMenu(connection) { 
     inquirer
@@ -53,7 +50,7 @@ async function removeAnyMenu(connection, typeStr) {
         employee:  dbUtil.sqlStrs.deleteEmployee, 
         role: dbUtil.sqlStrs.deleteRole
     }
-    
+
     // This gets all employees, departments or roles. 
     var func = getMenuItemsForDelete[typeStr];
     var menuItems = await func(connection);
