@@ -1,19 +1,25 @@
 const mysql = require("mysql");
 const fs = require("fs");
 
+var connection;
+
 function setupConnection(){ 
     return new Promise((resolve, reject) => {
         var mysqlConfigStr = fs.readFileSync(__dirname + "/mysql.cfg", "utf8");
         var mysqlConfig = JSON.parse(mysqlConfigStr); 
-        var connection = mysql.createConnection(mysqlConfig);
+        connection = mysql.createConnection(mysqlConfig);
         connection.connect(function(err) {
             if (err) {
                 reject(err);
             }
             console.log("connected as id " + connection.threadId);
-            resolve(connection);        
+            resolve();        
         });
     });
+}
+
+function endConnection(){ 
+    connection.end();
 }
 
 var sqlStrs = 
@@ -45,7 +51,7 @@ var sqlStrs =
     selectRoles: "SELECT * FROM role;"
 }
 
-var execSQL = function(connection, sqlStr, param){ 
+var execSQL = function(sqlStr, param){ 
     sqlStr = mysql.format(sqlStr, param);
     // console.log(sqlStr);
     return new Promise((resolve, reject) => {
@@ -66,5 +72,6 @@ var execSQL = function(connection, sqlStr, param){
 module.exports = {
     sqlStrs: sqlStrs,
     execSQL: execSQL,
-    setupConnection: setupConnection
+    setupConnection: setupConnection,
+    endConnection: endConnection,
 };

@@ -29,10 +29,10 @@ function getIdFromRow(str) {
     return regExResult[0];
 }
 
-function getAllEmployees(connection){
+function getAllEmployees(){
     return new Promise((resolve, reject) => {
         var employeesArray = [];
-        dbUtil.execSQL(connection, dbUtil.sqlStrs.selectEmployees)
+        dbUtil.execSQL(dbUtil.sqlStrs.selectEmployees)
         .then((res)=>{
             for (var i=0; i < res.length; i++) {
                 let employeeFullName = res[i].id + " " + res[i].first_name + " " + res[i].last_name;
@@ -46,10 +46,10 @@ function getAllEmployees(connection){
     });
 }
 
-function getAllRoles(connection){
+function getAllRoles(){
     return new Promise((resolve, reject) => {
         var rolesArray = [];
-        dbUtil.execSQL(connection,dbUtil.sqlStrs.selectRoles)
+        dbUtil.execSQL(dbUtil.sqlStrs.selectRoles)
         .then((res)=>{
             for (var i=0; i < res.length; i++) {
                 let role = res[i].id + " " + res[i].title;
@@ -63,10 +63,10 @@ function getAllRoles(connection){
     });
 }
 
-function getAllDepartments(connection){
+function getAllDepartments(){
     return new Promise((resolve, reject) => {
         var departmentsArray = [];
-        dbUtil.execSQL(connection, dbUtil.sqlStrs.selectDepartments)
+        dbUtil.execSQL(dbUtil.sqlStrs.selectDepartments)
         .then((res)=>{
             for (var i=0; i < res.length; i++) {
                 let role = res[i].id + " " + res[i].name;

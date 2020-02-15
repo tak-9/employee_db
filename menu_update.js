@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const dbUtil = require("./util/db_util.js");
 const util = require("./util/util.js");
 
-function updateMenu(connection) { 
+function updateMenu() { 
     inquirer
         .prompt([
             {
@@ -13,20 +13,20 @@ function updateMenu(connection) {
             }])
         .then(function (res) {
             if (res.main === "Update Employee Role") {
-                updateEmployeeRoleMenu(connection); 
+                updateEmployeeRoleMenu(); 
             } else if (res.main === "Update Employee Manager"){
-                updateEmployeeManagerMenu(connection);
+                updateEmployeeManagerMenu();
             }
         })
         .catch(function (err) { 
             console.log("Error in update menu!", err);
-            connection.end();
+            dbUtil.endConnection();
         })
 };
 
 
-async function updateEmployeeRoleMenu(connection) {
-    Promise.all([util.getAllRoles(connection), util.getAllEmployees(connection)])
+async function updateEmployeeRoleMenu() {
+    Promise.all([util.getAllRoles(), util.getAllEmployees()])
     .then((results)=>{
         var rolesArray = results[0];
         var employeesArray = results[1];
@@ -48,11 +48,11 @@ async function updateEmployeeRoleMenu(connection) {
             var roleId = util.getIdFromRow(res.roleWithID);
             let param = [roleId, empId];
             //console.log(`empId: ${empId} roleId: ${roleId}`);
-            dbUtil.execSQL(connection, dbUtil.sqlStrs.updateEmployeeRole, param);
+            dbUtil.execSQL(dbUtil.sqlStrs.updateEmployeeRole, param);
             console.log(`Updated ${res.employeeNameWithID}'s role.`);
         })
         .finally(() => { 
-            connection.end();
+            dbUtil.endConnection();
         });
     })
 }
@@ -62,8 +62,8 @@ module.exports = {
 };
 
 
-async function updateEmployeeManagerMenu(connection) { 
-    var allEmployees = await util.getAllEmployees(connection);
+async function updateEmployeeManagerMenu() { 
+    var allEmployees = await util.getAllEmployees();
 
     inquirer
         .prompt([
@@ -83,13 +83,13 @@ async function updateEmployeeManagerMenu(connection) {
             var empId = util.getIdFromRow(res.staff);
             var newManagerId = util.getIdFromRow(res.manager);
             var param = [newManagerId, empId];
-            dbUtil.execSQL(connection, dbUtil.sqlStrs.updateEmployeeManager, param);
+            dbUtil.execSQL(dbUtil.sqlStrs.updateEmployeeManager, param);
             console.log(`Updated ${res.staff}'s manager.`);
         })
         .catch(function (err){
             console.log("Error in UpdateEmployeeManager!", err);
         })
         .finally(function (err){
-            connection.end();
+            dbUtil.endConnection();
         })
 };

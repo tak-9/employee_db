@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const util = require("./util/util.js");
 const dbUtil = require("./util/db_util.js");
 
-function deleteMenu(connection) { 
+function deleteMenu() { 
     inquirer
         .prompt([
             {
@@ -15,28 +15,25 @@ function deleteMenu(connection) {
             }])
         .then(async function (res) {
             if (res.main === "Remove Employee") {
-                var emp = new EmployeeOperations();
-                removeAnyMenu(connection, "employee");
+                removeAnyTypeMenu("employee");
             } else if (res.main === "Remove Department") {
-                var department = new DepartmentOperations();
-                removeAnyMenu(connection, "department");
+                removeAnyTypeMenu("department");
             } else if (res.main === "Remove Role") {
-                var role = new RoleOperations();
-                removeAnyMenu(connection, "role");
+                removeAnyTypeMenu("role");
             }
         })
         .catch(function (err) { 
             console.log("Error in delete menu!", err);
-            connection.end();
+            dbUtil.endConnection();
         })
 }
 
 
-async function removeAnyMenu(connection, typeStr) {
+async function removeAnyTypeMenu(typeStr) {
     // These are functions to get all the employees, departments or roles for diplaying in menu. 
     var getMenuItemsForDelete = { 
         department: util.getAllDepartments,
-        employee: util.getAllRoles,
+        employee: util.getAllEmployees,
         role: util.getAllRoles
     }
     var deleteMessages = {
@@ -53,7 +50,7 @@ async function removeAnyMenu(connection, typeStr) {
 
     // This gets all employees, departments or roles. 
     var func = getMenuItemsForDelete[typeStr];
-    var menuItems = await func(connection);
+    var menuItems = await func();
     inquirer
         .prompt([
             {
@@ -65,14 +62,14 @@ async function removeAnyMenu(connection, typeStr) {
         .then(async(res)=>{
             var id = util.getIdFromRow(res.chosen);
             sqlStr = deleteSqls[typeStr];
-            await dbUtil.execSQL(connection, sqlStr, [id]);        
+            await dbUtil.execSQL(sqlStr, [id]);        
             console.log(res.chosen, " was deleted.");
         })
         .catch((err)=>{
             console.log("Error in removeAny!", err);
         })
         .finally(()=>{
-            connection.end();
+            dbUtil.endConnection();
         })
 }
 

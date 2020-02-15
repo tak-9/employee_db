@@ -10,16 +10,16 @@ main();
 
 function main(){
     dbUtil.setupConnection()
-    .then((connection)=>{
+    .then(()=>{
         util.displayBanner();
-        mainMenu(connection);
+        mainMenu();
     })
     .catch((err)=>{
         console.log("Database setup error!",err);
     })
 }
 
-function mainMenu(connection) { 
+function mainMenu() { 
     inquirer
         .prompt([
             {
@@ -30,13 +30,13 @@ function mainMenu(connection) {
             }])
         .then((res) => {
             if (res.main === "View") {
-                viewMenu.viewMenu(connection);
+                viewMenu.viewMenu();
             } else if (res.main === "Add") {
-                insertMenu.insertMenu(connection);
+                insertMenu.insertMenu();
             } else if (res.main === "Update") {
-                updateMenu.updateMenu(connection);
+                updateMenu.updateMenu();
             } else if (res.main === "Delete") { 
-                deleteMenu.deleteMenu(connection);
+                deleteMenu.deleteMenu();
             } 
         })
         .catch(function (err) { 

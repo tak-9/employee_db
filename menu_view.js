@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const dbUtil = require("./util/db_util.js");
 
-function viewMenu(connection) { 
+function viewMenu() { 
     inquirer
         .prompt([
             {
@@ -18,19 +18,19 @@ function viewMenu(connection) {
         .then(async function (res) {
             let dbResult;
             if (res.main === "View All Employees By Department") {
-                dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectEmployeesByDepartment);
+                dbResult = await dbUtil.execSQL(dbUtil.sqlStrs.selectEmployeesByDepartment);
                 console.table(dbResult);
             } else if (res.main === "View All Employees By Manager") {
-                dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectEmployeesByManager);
+                dbResult = await dbUtil.execSQL(dbUtil.sqlStrs.selectEmployeesByManager);
                 console.table(dbResult);
             } else if (res.main === "View All Departments") { 
-                dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectDepartments);
+                dbResult = await dbUtil.execSQL(dbUtil.sqlStrs.selectDepartments);
                 console.table(dbResult);
             } else if (res.main === "View All Roles"){
-                dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectRoles);
+                dbResult = await dbUtil.execSQL(dbUtil.sqlStrs.selectRoles);
                 console.table(dbResult);
             } else if (res.main === "View the total utilized budget of a department") {
-                dbResult = await dbUtil.execSQL(connection, dbUtil.sqlStrs.selectSumSalaryOfDepartment);
+                dbResult = await dbUtil.execSQL(dbUtil.sqlStrs.selectSumSalaryOfDepartment);
                 console.table(dbResult);
             } 
         })
@@ -38,7 +38,7 @@ function viewMenu(connection) {
             console.log("Error in main menu!", err);
         })
         .finally(function() { 
-            connection.end();
+            dbUtil.endConnection();
         });
 }
 
