@@ -3,7 +3,7 @@ This is a CLI application that manages Employee database.
 
 Usage 
 
-1.	Ensure MySQL and node.js is installed as this application was developed using node.js. 
+1.	Ensure MySQL and node.js are installed as this application has been developed using node.js and MySQL. 
 2.	Download this application by git or clicking “Download ZIP” button in the github website. 
 
 $ git clone https://github.com/tak-9/employee_db.git 
