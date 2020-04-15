@@ -27,16 +27,21 @@ The following queries can be made by this application.
 
 4.  Create database and insert data to MySQL. Run data.sql and emp.sql on MySQL. 
 
-5.	Open ./util/mysql.cfg and edit MySQL configuration. Change MySQL password if necessary. 
+5.	Open `./util/mysql.cfg` and edit MySQL configuration. Change MySQL password if necessary. 
 
 ## Usage 
-1. Run application. 
+1. Run application.
+
  `$ node employee.js `
 
 2.	Select an item in the menu to perform search, add, update, delete an entry in the database. 
 
+## Schema Design
+
+<img src="schema.png" width="400px">
+
 ## Technologies
 Following technologies were used to develop the application.
-* MySQL, Node.js, NPM packages [mysql](https://www.npmjs.com/package/mysql) , [Inquirer](https://www.npmjs.com/package/inquirer), [console.table](https://www.npmjs.com/package/console.table) 
+* [MySQL](https://www.mysql.com/), [Node.js](https://nodejs.org), NPM packages [mysql](https://www.npmjs.com/package/mysql) , [Inquirer](https://www.npmjs.com/package/inquirer), [console.table](https://www.npmjs.com/package/console.table) 
 
 
