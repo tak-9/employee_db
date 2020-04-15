@@ -1,34 +1,42 @@
-# employee_db
-This is a CLI application that manages Employee database.  
+# Employee Database
+This is an application that manages Employee database by CLI interface. 
 
-Usage 
+<img src="screencapture.png" width="400px">
 
-1.	Ensure MySQL and node.js are installed as this application has been developed using node.js and MySQL. 
-2.	Download this application by git or clicking “Download ZIP” button in the github website. 
+## Functionalities
+The following queries can be made by this application.
+* Add departments, roles, employees
+* View departments, roles, employees
+* Update employee roles
+* Update employee managers
+* View employees by manager
+* Delete departments, roles, and employees
+* View the total utilized budget of a department (ie. the combined salaries of all employees in that department)
 
-$ git clone https://github.com/tak-9/employee_db.git 
+
+
+## Installation  
+1.	Ensure MySQL and node.js are installed. 
+2.	Download this application by git or clicking "Download ZIP" button from the GitHub Website. 
+
+ `$ git clone https://github.com/tak-9/employee_db.git`
 
 3.	Install libraries. 
 
-$ npm install 
+ `$ npm install` 
 
 4.  Create database and insert data to MySQL. Run data.sql and emp.sql on MySQL. 
 
 5.	Open ./util/mysql.cfg and edit MySQL configuration. Change MySQL password if necessary. 
 
-6. Run application. 
+## Usage 
+1. Run application. 
+ `$ node employee.js `
 
-$ node employee.js 
+2.	Select an item in the menu to perform search, add, update, delete an entry in the database. 
 
-7.	Select an item in the menu to perform search, add, update, delete an entry in the database. 
-8.	The application ends when the database operation is completed.  
-
-Please repeat the above step if you need to perform another database query.  
-
+## Technologies
 Following technologies were used to develop the application.
-* Node.js 
-* MySQL
-* Inquirer https://www.npmjs.com/package/inquirer
+* MySQL, Node.js, NPM packages [mysql](https://www.npmjs.com/package/mysql) , [Inquirer](https://www.npmjs.com/package/inquirer), [console.table](https://www.npmjs.com/package/console.table) 
 
 
-<img src="screencapture.png" width="400px">
