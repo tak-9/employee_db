@@ -1,4 +1,4 @@
-# Employee Database :mag:
+# Employee Database :card_file_box:
 This is an application that manages Employee database by CLI interface. 
 
 <img src="screencapture.png" width="400px">
