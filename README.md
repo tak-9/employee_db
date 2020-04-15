@@ -14,9 +14,10 @@ The following queries can be made by this application.
 * View the total utilized budget of a department (ie. the combined salaries of all employees in that department)
 
 
-
 ## Installation  
-1.	Ensure MySQL and node.js are installed. 
+:point_right: Follow the steps below to install this application: 
+
+1.	Ensure [MySQL](https://www.mysql.com/) and [Node.js](https://nodejs.org) are installed. 
 2.	Download this application by git or clicking "Download ZIP" button from the GitHub Website. 
 
  `$ git clone https://github.com/tak-9/employee_db.git`
@@ -30,11 +31,12 @@ The following queries can be made by this application.
 5.	Open `./util/mysql.cfg` and edit MySQL configuration. Change MySQL password if necessary. 
 
 ## Usage 
-1. Run application.
+:point_right: Follow  the steps below to run this application
+1. Enter the following command in the command prompt or terminal. 
 
  `$ node employee.js `
 
-2.	Select an item in the menu to perform search, add, update, delete an entry in the database. 
+2.	Once the application is started, select an item in the menu to perform search, add, update, delete an entry in the database. 
 
 ## Schema Design
 
